@@ -2,6 +2,7 @@ require("dotenv").config();
 const MySql = require("./MySql");
 
 exports.execQuery = async function (query) {
+  console.log(query);
     let returnValue = []
 const connection = await MySql.connection();
     try {

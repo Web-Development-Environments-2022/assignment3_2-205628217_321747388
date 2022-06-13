@@ -1,1 +1,2 @@
-SELECT * FROM mydb.users;
+SELECT * FROM database.users;
+show tables
