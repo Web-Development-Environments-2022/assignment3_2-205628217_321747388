@@ -100,4 +100,7 @@ exports.getRecipeDetails = getRecipeDetails;
 exports.getRecipesPreview = getRecipesPreview;
 exports.getRandomThreeRecipes =getRandomThreeRecipes; 
 
+exports.getRecipeDetails = getRecipeDetails;
+exports.getRecipesPreview = getRecipesPreview;
+exports.getRandomThreeRecipes =getRandomThreeRecipes; 
 
