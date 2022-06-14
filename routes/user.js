@@ -52,7 +52,19 @@ router.get('/favorites', async (req,res,next) => {
   }
 });
 
-
+/**
+ * This path gets body with recipeId and save this recipe in the viewed list of the logged-in user
+ */
+ router.post('/viewed', async (req,res,next) => {
+  try{
+    const user_id = req.session.user_id;
+    const recipe_id = req.body.recipeId;
+    await user_utils.markAsViewed(user_id,recipe_id);
+    res.status(200).send("The Recipe successfully saved as viewed");
+    } catch(error){
+    next(error);
+  }
+})
 
 
 

@@ -109,6 +109,30 @@ paths:
           description: User is not authorized.
       security:
       - cookieAuth: []
+  /users/viewed:
+    post:
+      tags:
+      - Users
+      summary: A recipe is added to the user's viewed list.
+      description: Adds a recipe to user's list of viewed recipes.
+      requestBody:
+        description: Recipe to add.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reciepeId:
+                  type: string
+                  description: Recipe's id which the user saved.
+                  example: 716429
+      responses:
+        "200":
+          description: A new recipe has been added to user's viewed list.
+        "401":
+          description: User is not authorized.
+      security:
+      - cookieAuth: []
   /recipes/{recipeId}:
     get:
       tags:
