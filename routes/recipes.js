@@ -5,6 +5,20 @@ const recipes_utils = require("./utils/recipes_utils");
 router.get("/", (req, res) => res.send("im here"));
 
 /**
+ * This path returns 3 random preview recipes
+ */
+ router.get("/random", async (req, res, next) => {
+  try {
+    console.log("in recipes random before get random");
+    let random_3_recipes = await recipes_utils.getRandomThreeRecipes();
+    console.log("in recipes random after get random");
+    res.send(random_3_recipes);
+  } catch (error) {
+    next(error);
+  }
+}); 
+
+/**
  * This path returns a full details of a recipe by its id
  */
 router.get("/:recipeId", async (req, res, next) => {
@@ -16,17 +30,7 @@ router.get("/:recipeId", async (req, res, next) => {
   }
 });
 
-/**
- * This path returns 3 random preview recipes
- */
- router.get("/random", async (req, res, next) => {
-  try {
-    let random_3_recipes = await recipes_utils.getRandomThreeRecipes();
-    res. send(random_3_recipes);
-  } catch (error) {
-    next(error);
-  }
-}); 
+
 
 /**
  * Serach for recipes by a search query.
