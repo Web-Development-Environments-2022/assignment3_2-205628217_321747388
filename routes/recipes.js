@@ -41,7 +41,7 @@ router.get("/:recipeId", async (req, res, next) => {
  * Result will be preview recipes.
  */
 router.get("/search/query/:searchQuery/amount/:num/:cuisine/:diet/:intolerances", async (req, res, next) => {
-  console.log("in print");
+  try{
   const {searchQuery, num, cuisine, diet, intolerances} = req.params;
   // set search params
   search_params = {};
@@ -52,19 +52,23 @@ router.get("/search/query/:searchQuery/amount/:num/:cuisine/:diet/:intolerances"
   search_params.number = num;
   search_params.instructionsRequired = true;
   search_params.apiKey = process.env.spooncular_apiKey; 
-  console.log(search_params);
   //gives a defult num
   if (num != 5 && num != 10 && num != 15) {
     search_params.number = 5;
   }
-  //check if query params exists (cuisine / diet / intolerances) and add them to search_params
-  //search_utils.extractQueryParams(req.query, search_params);
-  search_utils.searchForRecipes(search_params)
-  .then((recipes) => res.send(recipes))
-  .catch((err) => {
-    next(err);
-  })
-});
+  let search_pool = await  search_utils.searchForRecipes(search_params);
+  let search_data = search_pool.data.results;
+  let recipe_ids = []
+  for (let j = 0;j < search_data.length; j++) {
+    recipe_ids.push(search_data[j].id);
+  }
+  let results = await recipes_utils.getRecipesPreview(recipe_ids);
+  res.send(results);
+} catch (error){
+  next(error);
+}
+})
+;
 
 /**
  * Authenticate POST requests by middleware

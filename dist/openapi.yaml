@@ -253,6 +253,64 @@ paths:
           description: A new recipe has been added
         "400":
           description: Wrong input parameters
+  /recipes/search/query/{searchQuery}/amount/{num}/{cuisine}/{diet}/{intolerances}:
+    get:
+      tags:
+      - Recipes
+      summary: Get recipes from search.
+      description: Returns a list of n recipe previews fitting the search query.
+      parameters:
+      - name: searchQuery
+        in: path
+        description: Name of recipe user wants to search for.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: num
+        in: path
+        description: Number of search results (5/10/15).
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cuisine
+        in: path
+        description: Type of cuisine.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: diet
+        in: path
+        description: Type of diet.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: intolerances
+        in: path
+        description: Food Intolerance.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Returns a list of recipes succesfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "204":
+          description: No content to return.
 components:
   schemas:
     User:

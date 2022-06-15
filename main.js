@@ -79,7 +79,6 @@ app.get("/alive", (req, res) => res.send("I'm alive"));
 // Routings
 app.use("/users", user);
 app.use("/recipes", recipes);
-console.log("before app.use");
 app.use(auth);
 
 // Default router
