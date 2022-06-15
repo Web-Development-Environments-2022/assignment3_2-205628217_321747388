@@ -1,4 +1,5 @@
 const axios = require("axios");
+const DButils = require("./DButils");
 const api_domain = "https://api.spoonacular.com/recipes";
 
 
@@ -78,6 +79,23 @@ async function getRecipeDetails(recipe_id) {
     }
 }
 
+async function getMyRecipeDetails(recipe_id) {
+    const recipe_info = await DButils.execQuery(`SELECT * FROM recipes WHERE id='${recipe_id}'`);
+    //let { id, title, readyInMinutes, image, aggregateLikes, vegan, vegetarian, glutenFree } = recipe_info.data;
+    console.log(recipe_info);
+    return recipe_info[0];
+    // return {
+    //     id: recipe_info.id,
+    //     title: recipe_info.title,
+    //     readyInMinutes: recipe_info.readyInMinutes,
+    //     image: recipe_info.image,
+    //     popularity: recipe_info.aggregateLikes,
+    //     vegan: recipe_info.vegan,
+    //     vegetarian: recipe_info.vegetarian,
+    //     glutenFree: recipe_info.glutenFree,
+    // }
+}
+
 async function getRecipesPreview(recipes_ids_list) {
     let promises = [];
     recipes_ids_list.map((id) => {
@@ -85,6 +103,45 @@ async function getRecipesPreview(recipes_ids_list) {
     });
     let info_res = await Promise.all(promises);
     return extractPreviewRecipeDetails(info_res);
+}
+
+async function getMyRecipesPreview(recipes_ids_list) {
+    let promises = [];
+    recipes_ids_list.map((id) => {
+        promises.push(getMyRecipeDetails(id));
+    });
+    //console.log(info_res);
+    let info_res = await Promise.all(promises);
+    return info_res;
+    //let info_res = await Promise.all(promises);
+    //return extractPreviewRecipeDetails(recipes_ids_list);
+    // return recipes_info.map((recipe_info) => {
+    //     //check the data type so it can work with diffrent types of data
+    //     let data = recipe_info;
+    //     if (recipe_info.data) {
+    //         data = recipe_info.data;
+    //     }
+    //     const {
+    //         id,
+    //         title,
+    //         readyInMinutes,
+    //         image,
+    //         aggregateLikes,
+    //         vegan,
+    //         vegetarian,
+    //         glutenFree,
+    //     } = data;
+    //     return {
+    //         id: id,
+    //         title: title,
+    //         image: image,
+    //         readyInMinutes: readyInMinutes,
+    //         popularity: aggregateLikes,
+    //         vegan: vegan,
+    //         vegetarian: vegetarian,
+    //         glutenFree: glutenFree 
+    //     }
+    // })  
 }
 
 // async function getRandomThreeRecipes(){
@@ -119,3 +176,5 @@ async function getRandomThreeRecipes() {
 exports.getRecipeDetails = getRecipeDetails;
 exports.getRecipesPreview = getRecipesPreview;
 exports.getRandomThreeRecipes =getRandomThreeRecipes;
+exports.getMyRecipeDetails = getMyRecipeDetails;
+exports.getMyRecipesPreview = getMyRecipesPreview;

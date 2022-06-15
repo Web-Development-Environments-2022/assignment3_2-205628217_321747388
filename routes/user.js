@@ -86,8 +86,8 @@ router.get('/myRecipes', async (req,res,next) => {
     let my_recipes = {};
     const recipes_id = await user_utils.getMyRecipes(user_id);
     let recipes_id_array = [];
-    recipes_id.map((element) => recipes_id_array.push(element.recipe_id)); //extracting the recipe ids into array
-    const results = await recipe_utils.getRecipesPreview(recipes_id_array);
+    recipes_id.map((element) => recipes_id_array.push(element.id)); //extracting the recipe ids into array
+    const results = await recipe_utils.getMyRecipesPreview(recipes_id_array);
     res.status(200).send(results);
   } catch(error){
     next(error); 

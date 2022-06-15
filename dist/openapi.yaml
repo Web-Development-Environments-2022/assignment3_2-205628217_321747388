@@ -194,6 +194,30 @@ paths:
                 $ref: '#/components/schemas/RecipePreview'
         "404":
           description: recipeId is not exists
+  /recipes/myRecipe/{recipeId}:
+    get:
+      tags:
+      - Recipes
+      summary: Return preview details on recipe by his ID.
+      description: Return preview details on recipe by his ID.
+      parameters:
+      - name: recipeId
+        in: path
+        description: Recipe's id.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: data about the recipe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipePreview'
+        "404":
+          description: recipeId is not exists
   /recipes/random:
     get:
       tags:
@@ -211,7 +235,7 @@ paths:
                   $ref: '#/components/schemas/RecipePreview'
         "204":
           description: No content to return.
-  /createRecipe:
+  /recipes/createRecipe:
     post:
       tags:
       - Recipes

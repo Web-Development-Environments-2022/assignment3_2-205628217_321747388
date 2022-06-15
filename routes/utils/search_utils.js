@@ -5,7 +5,7 @@ function extractQueryParams(query, search_params){
 
 }
 
-function searchForRecipes(search_params){
+async function searchForRecipes(search_params){
 
     console.log("in search for recipes");
     return await axios.get(`${api_domain}/${recipe_id}/information`, {
