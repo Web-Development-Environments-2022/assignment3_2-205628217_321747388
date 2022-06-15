@@ -42,7 +42,6 @@ router.get("/:recipeId", async (req, res, next) => {
  */
 router.get("/search/query/:searchQuery/amount/:num/:cuisine/:diet/:intolerances", async (req, res, next) => {
   try{
-  console.log("in print");
   const {searchQuery, num, cuisine, diet, intolerances} = req.params;
   // set search params
   search_params = {};
@@ -53,16 +52,12 @@ router.get("/search/query/:searchQuery/amount/:num/:cuisine/:diet/:intolerances"
   search_params.number = num;
   search_params.instructionsRequired = true;
   search_params.apiKey = process.env.spooncular_apiKey; 
-  console.log(search_params);
   //gives a defult num
   if (num != 5 && num != 10 && num != 15) {
     search_params.number = 5;
   }
   let search_pool = await  search_utils.searchForRecipes(search_params);
   let search_data = search_pool.data.results;
-  console.log(search_pool.data.results);
-  console.log("--------");
-  console.log(search_data);
   let recipe_ids = []
   for (let j = 0;j < search_data.length; j++) {
     recipe_ids.push(search_data[j].id);
