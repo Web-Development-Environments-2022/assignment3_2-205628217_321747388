@@ -98,7 +98,7 @@ paths:
             schema:
               type: object
               properties:
-                reciepeId:
+                recipeId:
                   type: string
                   description: Recipe's id which the user saved.
                   example: 716429
@@ -110,6 +110,24 @@ paths:
       security:
       - cookieAuth: []
   /users/viewed:
+    get:
+      tags:
+      - Users
+      summary: Get user's viewed recipes.
+      description: Returns a list of a user's 3 most recentley viewd recipes.
+      responses:
+        "200":
+          description: Returns a list of recipes succesfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
     post:
       tags:
       - Users
@@ -122,7 +140,7 @@ paths:
             schema:
               type: object
               properties:
-                reciepeId:
+                recipeId:
                   type: string
                   description: Recipe's id which the user saved.
                   example: 716429
@@ -131,6 +149,25 @@ paths:
           description: A new recipe has been added to user's viewed list.
         "401":
           description: User is not authorized.
+      security:
+      - cookieAuth: []
+  /users/myRecipes:
+    get:
+      tags:
+      - Users
+      summary: Get user's recipes.
+      description: Returns a list of the recipes that the user created.
+      responses:
+        "200":
+          description: Returns a list of recipes succesfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
       security:
       - cookieAuth: []
   /recipes/{recipeId}:
