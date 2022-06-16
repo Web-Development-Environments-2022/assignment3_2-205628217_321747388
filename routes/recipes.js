@@ -21,6 +21,38 @@ router.get("/random", async (req, res, next) => {
   }
 }); 
 
+
+router.get("/search", async (req, res, next) => {
+  try{
+  const {searchQuery, num, cuisine, diet, intolerances} = req.query;
+  // set search params
+  search_params = {};
+  search_params.query = searchQuery;
+  search_params.cuisine = cuisine;
+  search_params.diet = diet;
+  search_params.intolerances = intolerances;
+  search_params.number = num;
+  search_params.instructionsRequired = true;
+  search_params.apiKey = process.env.spooncular_apiKey; 
+  console.log(search_params);
+  //gives a defult num
+  if (num != 5 && num != 10 && num != 15) {
+    search_params.number = 5;
+  }
+  let search_pool = await  search_utils.searchForRecipes(search_params);
+  let search_data = search_pool.data.results;
+  let recipe_ids = []
+  for (let j = 0;j < search_data.length; j++) {
+    recipe_ids.push(search_data[j].id);
+  }
+  let results = await recipes_utils.getRecipesPreview(recipe_ids);
+  res.send(results);
+} catch (error){
+  next(error);
+}
+})
+;
+
 /**
  * This path returns a full details of a recipe by its id
  */
@@ -40,35 +72,36 @@ router.get("/:recipeId", async (req, res, next) => {
  * Will return results from spoonacular API, according to number param, which can be filtered by Cusine, diet, intolerance.
  * Result will be preview recipes.
  */
-router.get("/search/query/:searchQuery/amount/:num/:cuisine/:diet/:intolerances", async (req, res, next) => {
-  try{
-  const {searchQuery, num, cuisine, diet, intolerances} = req.params;
-  // set search params
-  search_params = {};
-  search_params.query = searchQuery;
-  search_params.cuisine = cuisine;
-  search_params.diet = diet;
-  search_params.intolerances = intolerances;
-  search_params.number = num;
-  search_params.instructionsRequired = true;
-  search_params.apiKey = process.env.spooncular_apiKey; 
-  //gives a defult num
-  if (num != 5 && num != 10 && num != 15) {
-    search_params.number = 5;
-  }
-  let search_pool = await  search_utils.searchForRecipes(search_params);
-  let search_data = search_pool.data.results;
-  let recipe_ids = []
-  for (let j = 0;j < search_data.length; j++) {
-    recipe_ids.push(search_data[j].id);
-  }
-  let results = await recipes_utils.getRecipesPreview(recipe_ids);
-  res.send(results);
-} catch (error){
-  next(error);
-}
-})
-;
+// router.get("/search/query/:searchQuery/amount/:num/:cuisine/:diet/:intolerances", async (req, res, next) => {
+//   try{
+//   const {searchQuery, num, cuisine, diet, intolerances} = req.params;
+//   // set search params
+//   search_params = {};
+//   search_params.query = searchQuery;
+//   search_params.cuisine = cuisine;
+//   search_params.diet = diet;
+//   search_params.intolerances = intolerances;
+//   search_params.number = num;
+//   search_params.instructionsRequired = true;
+//   search_params.apiKey = process.env.spooncular_apiKey; 
+//   //gives a defult num
+//   if (num != 5 && num != 10 && num != 15) {
+//     search_params.number = 5;
+//   }
+//   let search_pool = await  search_utils.searchForRecipes(search_params);
+//   let search_data = search_pool.data.results;
+//   let recipe_ids = []
+//   for (let j = 0;j < search_data.length; j++) {
+//     recipe_ids.push(search_data[j].id);
+//   }
+//   let results = await recipes_utils.getRecipesPreview(recipe_ids);
+//   res.send(results);
+// } catch (error){
+//   next(error);
+// }
+// })
+// ;
+
 
 /**
  * Authenticate POST requests by middleware
