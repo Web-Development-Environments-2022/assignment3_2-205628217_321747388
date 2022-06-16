@@ -85,8 +85,8 @@ paths:
                   $ref: '#/components/schemas/RecipePreview'
         "401":
           description: user is not authorized
-      security:
-      - cookieAuth: []
+      # security:
+      # - cookieAuth: []
     post:
       tags:
       - Users
