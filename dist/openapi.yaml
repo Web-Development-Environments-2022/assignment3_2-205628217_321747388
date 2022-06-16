@@ -79,8 +79,8 @@ paths:
                   $ref: '#/components/schemas/RecipePreview'
         "401":
           description: user is not authorized
-      # security:
-      # - cookieAuth: []
+      security:
+      - cookieAuth: []
     post:
       tags:
       - Users
@@ -150,6 +150,25 @@ paths:
       tags:
       - Users
       summary: Get user's recipes.
+      description: Returns a list of the recipes that the user created.
+      responses:
+        "200":
+          description: Returns a list of recipes succesfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+  /users/familyRecipes:
+    get:
+      tags:
+      - Users
+      summary: Get family user's recipes.
       description: Returns a list of the recipes that the user created.
       responses:
         "200":

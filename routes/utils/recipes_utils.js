@@ -96,6 +96,13 @@ async function getMyRecipeDetails(recipe_id) {
     // }
 }
 
+// async function getFamilyRecipeDetails(recipe_id) {
+//     const recipe_info = await DButils.execQuery(`SELECT * FROM familyrecipes WHERE id='${recipe_id}'`);
+//     //let { id, title, readyInMinutes, image, aggregateLikes, vegan, vegetarian, glutenFree } = recipe_info.data;
+//     console.log(recipe_info);
+//     return recipe_info[0];
+// }
+
 async function getRecipesPreview(recipes_ids_list) {
     let promises = [];
     recipes_ids_list.map((id) => {
@@ -144,6 +151,15 @@ async function getMyRecipesPreview(recipes_ids_list) {
     // })  
 }
 
+// async function getFamilyRecipesPreview(recipes_ids_list) {
+//     let promises = [];
+//     recipes_ids_list.map((id) => {
+//         promises.push(getFamilyRecipeDetails(id));
+//     });
+//     let info_res = await Promise.all(promises);
+//     return info_res;
+// }
+
 // async function getRandomThreeRecipes(){
 //     console.log("in recipes utils random 3 before get random");
 //     let random_pool = await getRandomRecipes();
@@ -178,3 +194,5 @@ exports.getRecipesPreview = getRecipesPreview;
 exports.getRandomThreeRecipes =getRandomThreeRecipes;
 exports.getMyRecipeDetails = getMyRecipeDetails;
 exports.getMyRecipesPreview = getMyRecipesPreview;
+// exports.getFamilyRecipeDetails = getFamilyRecipeDetails;
+// exports.getFamilyRecipesPreview = getFamilyRecipesPreview;
