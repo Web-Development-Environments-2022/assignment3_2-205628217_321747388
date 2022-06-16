@@ -11,7 +11,7 @@ const api_domain = "https://api.spoonacular.com/recipes";
 
 
 async function getRecipeInformation(recipe_id) {
-    console.log("in recipes utils random before await");
+    //console.log("in recipes utils random before await");
     return await axios.get(`${api_domain}/${recipe_id}/information`, {
         params: {
             includeNutrition: false,
@@ -57,10 +57,10 @@ function extractPreviewRecipeDetails(recipes_info) {
             popularity: aggregateLikes,
             vegan: vegan,
             vegetarian: vegetarian,
-            glutenFree: glutenFree 
+            glutenFree: glutenFree
         }
     })  
-} 
+}
 
 async function getRecipeDetails(recipe_id) {
     let recipe_info = await getRecipeInformation(recipe_id);

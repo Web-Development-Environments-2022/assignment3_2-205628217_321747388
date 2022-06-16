@@ -1,2 +1,2 @@
 SELECT * FROM database.users;
-show tables
+delete FROM database.favorites where recipe_id=716428;

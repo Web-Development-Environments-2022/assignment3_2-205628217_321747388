@@ -35,6 +35,8 @@ paths:
           description: A new user has been added
         "400":
           description: wrong input parameters
+        "409":
+          description: username already exists
   /login:
     post:
       tags:
@@ -49,15 +51,7 @@ paths:
         required: true
       responses:
         "200":
-          description: |
-            User was found in the DB and authenitcated successfully. The session ID is returned in a cookie named `session`.  You should include this cookie in subsequent requests
-          headers:
-            Set-Cookie:
-              style: simple
-              explode: false
-              schema:
-                type: string
-                example: session=87s97sdhgf279293f8w0e9
+          description: User was found in the DB and authenitcated successfully. The session ID is returned in a cookie named `session`.  You should include this cookie in subsequent requests
         "401":
           description: Authentication failed
   /logout:
