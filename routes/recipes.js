@@ -5,7 +5,8 @@ const search_utils = require("./utils/search_utils");
 const DButils = require("./utils/DButils");
 
 
-router.get("/", (req, res) => res.send("im here"));
+// router.get("/", (req, res) => res.send("im here"));
+console.log("before recipes random");
 
 /**
  * This path returns 3 random preview recipes
@@ -21,6 +22,7 @@ router.get("/random", async (req, res, next) => {
   }
 }); 
 
+console.log("before search");
 
 router.get("/search", async (req, res, next) => {
   try{
@@ -52,19 +54,22 @@ router.get("/search", async (req, res, next) => {
 }
 })
 ;
+console.log("before info");
 
 /**
  * This path returns a full details of a recipe by its id
  */
-router.get("/:recipeId", async (req, res, next) => {
+router.get("/info/:recipeId", async (req, res, next) => {
+  console.log("in get recipe");
   try {
+    console.log(req.params.recipeId);
     const recipe = await recipes_utils.getRecipeDetails(req.params.recipeId);
     res.send(recipe);
   } catch (error) {
     next(error);
   }
 });
-
+console.log("after info");
 
 
 /**

@@ -64,18 +64,22 @@ function extractPreviewRecipeDetails(recipes_info) {
 
 async function getRecipeDetails(recipe_id) {
     let recipe_info = await getRecipeInformation(recipe_id);
-    let { id, title, readyInMinutes, image, aggregateLikes, vegan, vegetarian, glutenFree } = recipe_info.data;
+    let { id, title, readyInMinutes, image, vegan, vegetarian, glutenFree, extendedIngredients, analyzedInstructions, instructions, aggregateLikes } = recipe_info.data;
 
     return {
         id: id,
         title: title,
         readyInMinutes: readyInMinutes,
         image: image,
-        popularity: aggregateLikes,
+        // popularity: aggregateLikes,
         vegan: vegan,
         vegetarian: vegetarian,
         glutenFree: glutenFree,
-        
+
+        extendedIngredients: extendedIngredients,
+        analyzedInstructions: analyzedInstructions,
+        instructions: instructions,
+        aggregateLikes: aggregateLikes
     }
 }
 
