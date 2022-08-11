@@ -24,7 +24,7 @@ router.get("/random", async (req, res, next) => {
 
 console.log("before search");
 
-router.get("/search", async (req, res, next) => {
+router.get("/search/", async (req, res, next) => {
   try{
   const {searchQuery, num, cuisine, diet, intolerances} = req.query;
   // set search params
@@ -54,7 +54,6 @@ router.get("/search", async (req, res, next) => {
 }
 })
 ;
-console.log("before info");
 
 /**
  * This path returns a full details of a recipe by its id
@@ -128,6 +127,7 @@ console.log("after info");
 
 
 router.post("/createRecipe", async (req, res, next) => {
+  console.log("in create recipe")
   try {
     // parameters exists
     // valid parameters
