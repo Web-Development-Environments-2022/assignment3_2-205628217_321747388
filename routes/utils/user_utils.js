@@ -24,7 +24,7 @@ async function markAsViewed(user_id, recipe_id){
 }
 
 async function getViewedRecipes(user_id){
-    const recipes_id = await DButils.execQuery(`SELECT recipe_id FROM viewed WHERE user_id='${user_id}' ORDER BY last_watched DESC limit 3`);
+    const recipes_id = await DButils.execQuery(`SELECT recipe_id FROM viewed WHERE user_id='${user_id}' ORDER BY last_watched DESC`);// limit 3`);
     return recipes_id;
 }
 
