@@ -108,7 +108,7 @@ paths:
       tags:
       - Users
       summary: Get user's viewed recipes.
-      description: Returns a list of a user's 3 most recentley viewd recipes.
+      description: Returns a list of all viewd recipes.
       responses:
         "200":
           description: Returns a list of recipes succesfully.
@@ -178,7 +178,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RecipePreview'
+                  $ref: '#/components/schemas/FamilyRecipe'
         "401":
           description: user is not authorized
       security:
@@ -521,4 +521,41 @@ components:
           description: Number of servings the recipe makes.
           example: 2
       description: Model containing recipe info
+    FamilyRecipe:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: recipe identifier
+          example: 102
+        title:
+          type: string
+          description: recipe name
+          example: Simple Macaroni and Cheese
+        image:
+          type: string
+          description: recipe image
+          format: URL
+          example: https://spoonacular.com/recipeimages/655455-566x370.jpg
+        readyInMinutes:
+          type: integer
+          description: the time takes to make this recipe
+          example: 45
+        ingredients:
+          type: string
+          description: Recipe ingredients and quantity.
+          example: 4 eggs
+        instructions:
+          type: string
+          description: Instructions for preparation.
+          example: Prepare the dough by adding water to flour.
+        recipeBy:
+          type: string
+          description: description.
+          example: example.
+        whenToHave:
+          type: string
+          description: description.
+          example: example.
+          
   

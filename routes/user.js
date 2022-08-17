@@ -97,7 +97,7 @@ router.get('/myRecipes', async (req,res,next) => {
 router.get('/familyRecipes', async (req,res,next) => {
   try{
     const user_id = req.session.user_id;
-    let favorite_recipes = {};
+    // let favorite_recipes = {};
     const recipes_id = await user_utils.getFamilyRecipes(user_id);
     //let recipes_id_array = [];
     console.log(recipes_id);
