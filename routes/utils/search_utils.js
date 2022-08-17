@@ -2,7 +2,6 @@ const axios = require("axios");
 const api_domain = "https://api.spoonacular.com/recipes";
 
 async function searchForRecipes(search_params){
-    console.log("in search for recipes");
     const response = await axios.get(`${api_domain}/complexSearch`, {
         params: {
             query: search_params.query,

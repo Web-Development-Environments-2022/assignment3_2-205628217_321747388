@@ -97,19 +97,12 @@ router.get('/myRecipes', async (req,res,next) => {
 router.get('/familyRecipes', async (req,res,next) => {
   try{
     const user_id = req.session.user_id;
-    // let favorite_recipes = {};
     const recipes_id = await user_utils.getFamilyRecipes(user_id);
-    //let recipes_id_array = [];
-    console.log(recipes_id);
     res.status(200).send(recipes_id);
-    // recipes_id.map((element) => recipes_id_array.push(element.id)); //extracting the recipe ids into array
-    // const results = await recipe_utils.getFamilyRecipesPreview(recipes_id_array);
-    // res.status(200).send(results);
   } catch(error){
     next(error); 
   }
 });
-
 
 
 module.exports = router;
