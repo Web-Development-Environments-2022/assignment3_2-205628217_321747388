@@ -551,11 +551,11 @@ components:
           example: Prepare the dough by adding water to flour.
         recipeBy:
           type: string
-          description: description.
-          example: example.
+          description: Who makes the recipe.
+          example: Grandma
         whenToHave:
           type: string
-          description: description.
-          example: example.
+          description: When is the recipe made usually.
+          example: Fridays.
           
   
